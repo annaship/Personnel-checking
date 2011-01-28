@@ -1,0 +1,9 @@
+<?php
+
+  function personell_check_uninstall() {
+    variable_del('new_person_first_name');   
+    variable_del('new_person_last_name');
+    variable_del('new_person_email');
+  }
+
+?>

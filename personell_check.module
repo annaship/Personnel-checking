@@ -1,0 +1,24 @@
+<?php
+// $Id: personell_check.module, v 1.0 2011-01-28 ashipunova $
+/*
+ * Form to check new person data against old ones
+ * ?q=personell_check
+*/
+
+function personell_check_menu() {
+  
+  $items = array();
+  $items['personell_check'] = array (
+    'title' => t('Check new person data against old ones'),
+    'page callback' => 'personell_check_page',
+    'access arguments' => array('administer nodes'),
+    'type' => MENU_SUGGESTED_ITEM,
+    'file' => 'personell_check_form.inc',
+    );
+  return $items;
+}
+
+function personell_check_page() {
+  return drupal_get_form('personell_check_form');
+}
+
