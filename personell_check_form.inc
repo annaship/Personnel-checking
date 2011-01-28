@@ -5,7 +5,10 @@ require_once('personell_check_form_submit.inc');
 function personell_check_form($form_state) {
   $form = array();
   unset($last_settings);
-  
+  $a = variable_get('new_person_nid', '1');
+  dpr($a);
+  drupal_set_message($a);
+
   // $q = db_query('SELECT nid FROM node WHERE nid > 689;');           
   // while ($nid = db_result($q)) {                                                                               
   //   node_delete($nid);                                                                                         
