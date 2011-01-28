@@ -6,7 +6,8 @@ function personell_check_form($form_state) {
   $form = array();
   unset($last_settings);
 //  TODO: rewrite!
-  $new_person_nid = variable_get('new_person_nid', '1');
+  $new_person_nid  = variable_get('new_person_nid', '1');
+  $new_person_node = _get_new_person_node($new_person_nid);
 
   $form['new_person'] = array(
     '#type' => 'fieldset',
@@ -22,7 +23,7 @@ function personell_check_form($form_state) {
     // '#required'  => TRUE,
     '#size'  => 30,
     '#maxlength' => 30,
-    '#default_value' => variable_get('new_person_nid', $new_person_nid),
+    '#default_value' => $new_person_node['first_name'],
     // '#description' => t('Site name acronym'),
   );
 
@@ -32,7 +33,7 @@ function personell_check_form($form_state) {
     // '#required'  => TRUE,
     '#size'  => 30,
     '#maxlength' => 30,
-    '#default_value' => variable_get('new_person_nid', $new_person_nid),
+    '#default_value' => $new_person_node['last_name'],
     // '#description' => t('Site name acronym'),
   );
 
@@ -42,7 +43,7 @@ function personell_check_form($form_state) {
     // '#required'  => TRUE,
     '#size'  => 30,
     '#maxlength' => 30,
-    '#default_value' => variable_get('new_person_nid', $new_person_nid),
+    '#default_value' => $new_person_node['email'],
     // '#description' => t('Site name acronym'),
   );
 
@@ -87,3 +88,14 @@ function personell_check_form($form_state) {
 
   return $form;
 }            
+
+
+function _get_new_person_node($new_person_nid) {
+  $new_person = array();
+  $node       = node_load($new_person_nid);
+  $new_person['first_name'] = $node->field_person_first_name[0]['value'];
+  $new_person['last_name']  = $node->field_person_last_name[0]['value'];
+  $new_person['email']      = $node->field_person_email[0]['email'];
+
+  return $new_person;
+} 
