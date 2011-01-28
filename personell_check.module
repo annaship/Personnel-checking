@@ -12,7 +12,7 @@ function personell_check_menu() {
     'title' => t('Check new person data against old ones'),
     'page callback' => 'personell_check_page',
     'access arguments' => array('administer nodes'),
-    'type' => MENU_SUGGESTED_ITEM,
+    'type' => MENU_CALLBACK,
     'file' => 'personell_check_form.inc',
     );
   return $items;
