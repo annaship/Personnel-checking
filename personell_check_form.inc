@@ -8,7 +8,7 @@ function personell_check_form($form_state) {
 //  TODO: rewrite!
   $new_person_nid = variable_get('new_person_nid', '1');
 
-    $form['new_person'] = array(
+  $form['new_person'] = array(
     '#type' => 'fieldset',
     '#title' => t('New personnel data'),
     '#tree' => TRUE,
