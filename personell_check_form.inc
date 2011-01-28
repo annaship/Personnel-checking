@@ -89,6 +89,9 @@ function personell_check_form($form_state) {
   return $form;
 }            
 
+//function personell_check_form_submit($form_id, &$form_state) {
+//  drupal_set_message(t('The form has been submitted.'));
+//}
 
 function _get_new_person_node($new_person_nid) {
   $new_person = array();
@@ -98,4 +101,5 @@ function _get_new_person_node($new_person_nid) {
   $new_person['email']      = $node->field_person_email[0]['email'];
 
   return $new_person;
-} 
+}
+
