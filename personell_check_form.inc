@@ -7,7 +7,7 @@ function personell_check_form($form_state) {
   unset($last_settings);
 //  TODO: rewrite!
   $new_person_nid  = variable_get('new_person_nid', '');
-  $new_person_node = _get_new_person_node($new_person_nid);
+//  $new_person_node = _get_new_person_node($new_person_nid);
   $old_person_nids = variable_get('old_person_nids', '');
   $new_last_name   = $new_person_node['last_name'];
 //  $old_person_nids = ($new_last_name);
@@ -15,7 +15,14 @@ function personell_check_form($form_state) {
 //  $nodes = $new_person_node;
 //  $nodes += _personell_check_items($old_person_nids);
 
-  $nodes = _personell_check_items($old_person_nids);
+  $new_a = array();
+  $new_a[] = node_load($new_person_nid);;
+  $old_a = _personell_check_items($old_person_nids);
+
+  $nodes = array_merge($new_a, $old_a);
+
+  dpm($nodes);
+//  $nodes = _personell_check_items($old_person_nids);
 
   $form['container'] = array(
     '#type' => 'markup',
@@ -25,7 +32,7 @@ function personell_check_form($form_state) {
 
   foreach($nodes as $node) {
     $form['container']['node_' . $node->nid] = array(
-      '#type' => 'textfield',
+      '#type' => 'checkbox',
       '#title' => NULL,
       '#size' => 4,
       '#default_value' => 0,
