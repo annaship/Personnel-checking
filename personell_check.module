@@ -10,7 +10,9 @@ function personell_check_menu() {
   $items = array();
   $items['personell_check'] = array (
     'title' => t('Check new person data against old ones'),
-    'page callback' => 'personell_check_page',
+//    'page callback' => 'personell_check_page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('personell_check_form'),
     'access arguments' => array('administer nodes'),
     'type' => MENU_CALLBACK,
     'file' => 'personell_check_form.inc',
@@ -18,7 +20,7 @@ function personell_check_menu() {
   return $items;
 }
 
-function personell_check_page() {
-  return drupal_get_form('personell_check_form');
-}
+//function personell_check_page() {
+//  return drupal_get_form('personell_check_form');
+//}
 
