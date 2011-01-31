@@ -82,7 +82,7 @@ function person_node_create($person_settings) {
   // $node->field_person_last_name = Array (0 => Array ('value' => ''));
   // $node->field_person_personid = Array (0 => Array ('value' => $personid));
 
-  node_save($node);
+//  node_save($node);
 
   return $node->nid;
 }

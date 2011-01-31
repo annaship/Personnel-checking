@@ -8,6 +8,8 @@ function personell_check_form($form_state) {
 //  TODO: rewrite!
   $new_person_nid  = variable_get('new_person_nid', '1');
   $new_person_node = _get_new_person_node($new_person_nid);
+  $new_last_name   = $new_person_node['last_name'];
+//  $old_person_nids = ($new_last_name);
 
   $form['new_person'] = array(
     '#type' => 'fieldset',
@@ -89,7 +91,7 @@ function personell_check_form($form_state) {
   return $form;
 }            
 
-//function personell_check_form_submit($form_id, &$form_state) {
+//function personell_check_form_submit($form, &$form_state) {
 //  drupal_set_message(t('The form has been submitted.'));
 //}
 
