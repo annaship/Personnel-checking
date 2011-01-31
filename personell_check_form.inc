@@ -21,7 +21,7 @@ function personell_check_form($form_state) {
 
   $nodes = array_merge($new_a, $old_a);
 
-  dpm($nodes);
+//  dpm($nodes);
 //  $nodes = _personell_check_items($old_person_nids);
 
   $form['container'] = array(
@@ -135,9 +135,6 @@ function personell_check_form_submit($form, &$form_state) {
 }
 
 function personell_check_theme($existing, $type, $theme, $path) {
-  dpr('personell_check_theme');
-  dpm('personell_check_theme');
-
   return array(
     'personell_check_form_table' => array(
       'arguments' => array('fieldset' => NULL),
@@ -149,7 +146,7 @@ function personell_check_theme($existing, $type, $theme, $path) {
 function theme_personell_check_form_table($container) {
 
   // Define header row for the table
-  $header = array(t('Nid'), t('Title'), t('Quantity'));
+  $header = array(t('Nid'), t('First Name'), t('Last Name'), t('Email'), t('Compare'));
 
   $rows = array();
 
@@ -163,7 +160,9 @@ function theme_personell_check_form_table($container) {
 
       $rows[] = array(
         $node->nid,
-        check_plain($node->title),
+        check_plain($node->field_person_first_name[0]['value']),
+        check_plain($node->field_person_last_name[0]['value']),
+        check_plain($node->field_person_email[0]['email']),
         drupal_render($field),
       );
 
