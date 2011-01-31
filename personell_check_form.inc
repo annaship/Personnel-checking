@@ -6,8 +6,9 @@ function personell_check_form($form_state) {
   $form = array();
   unset($last_settings);
 //  TODO: rewrite!
-  $new_person_nid  = variable_get('new_person_nid', '1');
+  $new_person_nid  = variable_get('new_person_nid', '');
   $new_person_node = _get_new_person_node($new_person_nid);
+  $old_person_nids = variable_get('old_person_nids', '');
   $new_last_name   = $new_person_node['last_name'];
 //  $old_person_nids = ($new_last_name);
 
