@@ -5,7 +5,6 @@
 function personell_check_form($form_state) {
   $form = array();
   unset($last_settings);
-//  TODO: rewrite!
   $new_person_nid  = variable_get('new_person_nid', '');
 //  $new_person_node = _get_new_person_node($new_person_nid);
   $old_person_nids = variable_get('old_person_nids', '');
@@ -16,12 +15,11 @@ function personell_check_form($form_state) {
 //  $nodes += _personell_check_items($old_person_nids);
 
   $new_a = array();
-  $new_a[] = node_load($new_person_nid);;
+  $new_a[] = node_load($new_person_nid);
   $old_a = _personell_check_items($old_person_nids);
 
   $nodes = array_merge($new_a, $old_a);
 
-//  dpm($nodes);
 //  $nodes = _personell_check_items($old_person_nids);
 
   $form['container'] = array(
@@ -132,6 +130,10 @@ function personell_check_form($form_state) {
 
 function personell_check_form_submit($form, &$form_state) {
   drupal_set_message(t('The form has been submitted.'));
+/*  TODO: get checked boxes and nids,
+ * goto another form with full information
+*/
+
 }
 
 function personell_check_theme($existing, $type, $theme, $path) {
