@@ -1,6 +1,6 @@
 <?php
 
-require_once('personell_check_form_submit.inc');
+//require_once('personell_check_form_submit.inc');
 
 function personell_check_form($form_state) {
   $form = array();
@@ -12,76 +12,97 @@ function personell_check_form($form_state) {
   $new_last_name   = $new_person_node['last_name'];
 //  $old_person_nids = ($new_last_name);
 
-  $form['new_person'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('New personnel data'),
-    '#tree' => TRUE,
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
+//  $nodes = $new_person_node;
+//  $nodes += _personell_check_items($old_person_nids);
+
+  $nodes = _personell_check_items($old_person_nids);
+
+  $form['container'] = array(
+    '#type' => 'markup',
+    '#value' => '',
+    '#theme' => 'personell_check_form_table',
   );
 
-  $form['new_person']['first_name'] = array(
-    '#type'  => 'textfield',
-    '#title' => t('First name'),
-    // '#required'  => TRUE,
-    '#size'  => 30,
-    '#maxlength' => 30,
-    '#default_value' => $new_person_node['first_name'],
-    // '#description' => t('Site name acronym'),
-  );
+  foreach($nodes as $node) {
+    $form['container']['node_' . $node->nid] = array(
+      '#type' => 'textfield',
+      '#title' => NULL,
+      '#size' => 4,
+      '#default_value' => 0,
+    );
+  }
 
-    $form['new_person']['last_name'] = array(
-    '#type'  => 'textfield',
-    '#title' => t('Last name'),
-    // '#required'  => TRUE,
-    '#size'  => 30,
-    '#maxlength' => 30,
-    '#default_value' => $new_person_node['last_name'],
-    // '#description' => t('Site name acronym'),
-  );
-
-    $form['new_person']['email'] = array(
-    '#type'  => 'textfield',
-    '#title' => t('Email'),
-    // '#required'  => TRUE,
-    '#size'  => 30,
-    '#maxlength' => 30,
-    '#default_value' => $new_person_node['email'],
-    // '#description' => t('Site name acronym'),
-  );
-
-
-  $form['old_persons'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Existing personnel data'),
-    '#tree' => TRUE,
-    '#collapsible' => TRUE,
-    '#collapsed' => FALSE,
-  );
-
-  $form['old_persons']['first_name'] = array (
-    '#type'  => 'textfield',
-    '#title' => t('first_name'),
-    '#default_value' => t('first_name'),
-    '#size'  => 60,
-    '#maxlength' => 60,
-  );
-
-  $form['old_persons']['last_name'] = array (
-    '#type'  => 'textfield',
-    '#title' => t('last_name'),
-    '#default_value' => t('last_name'),
-    '#size'  => 60,
-    '#maxlength' => 60,
-  );
-
-  $form['old_persons']['email'] = array (
-    '#type'  => 'textfield',
-    '#title' => t('email'),
-    '#default_value' => t('email'),
-    '#size'  => 60,
-    '#maxlength' => 60,
-  );
+//  $form['new_person'] = array(
+//    '#type' => 'fieldset',
+//    '#title' => t('New personnel data'),
+//    '#tree' => TRUE,
+//    '#collapsible' => TRUE,
+//    '#collapsed' => FALSE,
+//  );
+//
+//
+//  $form['new_person']['first_name'] = array(
+//    '#type'  => 'textfield',
+//    '#title' => t('First name'),
+//    // '#required'  => TRUE,
+//    '#size'  => 30,
+//    '#maxlength' => 30,
+//    '#default_value' => $new_person_node['first_name'],
+//    // '#description' => t('Site name acronym'),
+//  );
+//
+//    $form['new_person']['last_name'] = array(
+//    '#type'  => 'textfield',
+//    '#title' => t('Last name'),
+//    // '#required'  => TRUE,
+//    '#size'  => 30,
+//    '#maxlength' => 30,
+//    '#default_value' => $new_person_node['last_name'],
+//    // '#description' => t('Site name acronym'),
+//  );
+//
+//    $form['new_person']['email'] = array(
+//    '#type'  => 'textfield',
+//    '#title' => t('Email'),
+//    // '#required'  => TRUE,
+//    '#size'  => 30,
+//    '#maxlength' => 30,
+//    '#default_value' => $new_person_node['email'],
+//    // '#description' => t('Site name acronym'),
+//  );
+//
+//
+//  $form['old_persons'] = array(
+//    '#type' => 'fieldset',
+//    '#title' => t('Existing personnel data'),
+//    '#tree' => TRUE,
+//    '#collapsible' => TRUE,
+//    '#collapsed' => FALSE,
+//  );
+//
+//  $form['old_persons']['first_name'] = array (
+//    '#type'  => 'textfield',
+//    '#title' => t('first_name'),
+//    '#default_value' => t('first_name'),
+//    '#size'  => 60,
+//    '#maxlength' => 60,
+//  );
+//
+//  $form['old_persons']['last_name'] = array (
+//    '#type'  => 'textfield',
+//    '#title' => t('last_name'),
+//    '#default_value' => t('last_name'),
+//    '#size'  => 60,
+//    '#maxlength' => 60,
+//  );
+//
+//  $form['old_persons']['email'] = array (
+//    '#type'  => 'textfield',
+//    '#title' => t('email'),
+//    '#default_value' => t('email'),
+//    '#size'  => 60,
+//    '#maxlength' => 60,
+//  );
 
 
   $form['submit'] = array (
@@ -90,7 +111,60 @@ function personell_check_form($form_state) {
     );
 
   return $form;
-}            
+}
+
+//function personell_check_form_validate($form, &$form_state) {
+//  foreach($form_state['values'] as $field_name => $value) {
+//    if(strpos($field_name, 'node_') === 0) {
+//      if(!is_numeric($value) || intval($value) < 0) {
+//        form_set_error($field_name, t('Value must be a non-negative integer.'));
+//      }
+//    }
+//  }
+//}
+
+function personell_check_form_submit($form, &$form_state) {
+  drupal_set_message(t('The form has been submitted.'));
+}
+
+function personell_check_theme($existing, $type, $theme, $path) {
+  dpr('personell_check_theme');
+  dpm('personell_check_theme');
+
+  return array(
+    'personell_check_form_table' => array(
+      'arguments' => array('fieldset' => NULL),
+    )
+  );
+}
+
+
+function theme_personell_check_form_table($container) {
+
+  // Define header row for the table
+  $header = array(t('Nid'), t('Title'), t('Quantity'));
+
+  $rows = array();
+
+  foreach($container as $field_name => $field) {
+
+    // All the fields were named 'node_' . $node->nid
+    if (strpos($field_name, 'node_') === 0) {
+
+      $nid = substr($field_name, 5);
+      $node = node_load($nid);
+
+      $rows[] = array(
+        $node->nid,
+        check_plain($node->title),
+        drupal_render($field),
+      );
+
+    }
+  }
+
+  return theme_table($header, $rows);
+}
 
 //function personell_check_form_submit($form, &$form_state) {
 //  drupal_set_message(t('The form has been submitted.'));
@@ -106,3 +180,15 @@ function _get_new_person_node($new_person_nid) {
   return $new_person;
 }
 
+
+function _personell_check_items($old_person_nids) {
+  $res = array();
+  foreach ($old_person_nids as $value) {
+    $res[] = node_load($value);
+  }
+
+  if(count($res) == 0) {
+    drupal_set_message(t("Couldn't find any nodes!"), 'warning');
+  }
+  return $res;
+}
