@@ -130,8 +130,72 @@ function personell_check_form($form_state) {
 
 function personell_check_form_submit($form, &$form_state) {
   drupal_set_message(t('The form has been submitted.'));
+
+$a = $checked = $form_state['values'];
+foreach ($a as $key => $value) {
+//  dpm($value);
+//  $k = 'node_17049';
+/*
+* if (preg_match("/(.+)=(.+)/", $code_definition['value'], $matches)) {
+  views_bonus_eml_print_line('code',       $matches[1]);
+  views_bonus_eml_print_line('definition', $matches[2]);
+}
+ */
+
+  $e = preg_match("/node_(\d+)/", $key, $matches);
+  $nid = $matches[1];
+  if (preg_match("/node/", $key) AND $value == 1) {
+    dpm('nid = ' . $nid);
+  }
+//  if (preg_match($pattern, $subject, $matches))
+//  if (preg_match("/node/", $k) == 1) {
+//   echo '$value - node';
+//  }
+//  else {
+//   echo "Not Matched";
+//  }
+}
+
+//  $a = array_keys($form_state['values']);
+  $b = array_values($form_state['values']);
+
+//  dpm($a);
+//  dpm($b);
 /*  TODO: get checked boxes and nids,
  * goto another form with full information
+ *
+ * values (Array, 9 elements)
+
+    *
+      node_16966 (Integer) 1
+    *
+      node_16887 (Integer) 1
+    *
+      node_16964 (Integer) 0
+    *
+      node_16965 (Integer) 0
+    *
+      node_16967 (Integer) 1
+    *
+      node_16887 (Integer) 0
+    *
+      node_16964 (Integer) 0
+    *
+      node_16965 (Integer) 0
+    *
+      node_16966 (Integer) 1
+    *
+      op (String, 6 characters ) Submit
+    *
+      submit (String, 6 characters ) Submit
+    *
+      form_build_id (String, 37 characters ) form-558943ef2d177d8eaad7beffcdb8fd8b
+    *
+      form_token (String, 32 characters ) 75fd1e0d33b939d51096f2fb342ba5b4
+    *
+      form_id (String, 20 characters ) personell_check_form | (Callback) personell_check_form();
+
+
 */
 
 }
@@ -191,11 +255,13 @@ function _get_new_person_node($new_person_nid) {
 
 function _personell_check_items($old_person_nids) {
   $res = array();
-  foreach ($old_person_nids as $value) {
-    $res[] = node_load($value);
+  if ($old_person_nids) {
+    foreach ($old_person_nids as $value) {
+      $res[] = node_load($value);
+    }
   }
 
-  if(count($res) == 0) {
+  if (count($res) == 0) {
     drupal_set_message(t("Couldn't find any nodes!"), 'warning');
   }
   return $res;
