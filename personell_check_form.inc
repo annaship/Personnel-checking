@@ -146,9 +146,8 @@ foreach ($a as $key => $value) {
   $e = preg_match("/node_(\d+)/", $key, $matches);
   $nid = $matches[1];
   if (preg_match("/node/", $key) AND $value == 1) {
-//    variable_set('person_checked', $value);
     $checked[] = $nid;
-    dpm($nid);
+//    dpm($nid);
   }
 //  if (preg_match($pattern, $subject, $matches))
 //  if (preg_match("/node/", $k) == 1) {
@@ -158,8 +157,9 @@ foreach ($a as $key => $value) {
 //   echo "Not Matched";
 //  }
 }
+  variable_set('person_checked', $value);
 
-    dpm($checked);
+//    dpm($checked);
 //  $a = array_keys($form_state['values']);
 //  $b = array_values($form_state['values']);
 

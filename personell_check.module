@@ -1,5 +1,5 @@
 <?php
-// $Id: personell_check.module, v 1.0 2011-01-28 ashipunova $
+// $Id: personell_check.module,v 1.1 2011/02/01 20:27:20 ashipunova Exp ashipunova $
 /*
  * Form to check new person data against old ones
  * ?q=personell_check

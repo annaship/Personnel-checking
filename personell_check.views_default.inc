@@ -1,5 +1,5 @@
 <?php
-// // $Id: personell_check.views_default.inc, v 1.0 2010-11-22 ashipunova Exp $
+// // $Id: personell_check.views_default.inc,v 1.1 2011/02/01 20:27:21 ashipunova Exp ashipunova $
 // 
 // /**
 //  * Views default views implementation
