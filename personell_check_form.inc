@@ -132,76 +132,37 @@ function personell_check_form_submit($form, &$form_state) {
   drupal_set_message(t('The form has been submitted.'));
   $checked = array();
 
-$a = $form_state['values'];
-foreach ($a as $key => $value) {
-//  dpm($value);
-//  $k = 'node_17049';
-/*
-* if (preg_match("/(.+)=(.+)/", $code_definition['value'], $matches)) {
-  views_bonus_eml_print_line('code',       $matches[1]);
-  views_bonus_eml_print_line('definition', $matches[2]);
-}
- */
-
+//$a = $form_state['values'];
+foreach ($form_state['values'] as $key => $value) {
   $e = preg_match("/node_(\d+)/", $key, $matches);
   $nid = $matches[1];
   if (preg_match("/node/", $key) AND $value == 1) {
     $checked[] = $nid;
-//    dpm($nid);
   }
-//  if (preg_match($pattern, $subject, $matches))
-//  if (preg_match("/node/", $k) == 1) {
-//   echo '$value - node';
-//  }
-//  else {
-//   echo "Not Matched";
-//  }
 }
-  variable_set('person_checked', $value);
-
 //    dpm($checked);
-//  $a = array_keys($form_state['values']);
-//  $b = array_values($form_state['values']);
 
-//  dpm($a);
-//  dpm($b);
-/*  TODO: get checked boxes and nids,
- * goto another form with full information
- *
- * values (Array, 9 elements)
+  $current_destination = drupal_get_destination();
+  if (checked_validation($checked)) {
+    variable_set('person_checked', $checked);
+    drupal_goto('two_person_compare', $current_destination);
+  } else {
+    drupal_goto('personell_check', $current_destination);
+  }
 
-    *
-      node_16966 (Integer) 1
-    *
-      node_16887 (Integer) 1
-    *
-      node_16964 (Integer) 0
-    *
-      node_16965 (Integer) 0
-    *
-      node_16967 (Integer) 1
-    *
-      node_16887 (Integer) 0
-    *
-      node_16964 (Integer) 0
-    *
-      node_16965 (Integer) 0
-    *
-      node_16966 (Integer) 1
-    *
-      op (String, 6 characters ) Submit
-    *
-      submit (String, 6 characters ) Submit
-    *
-      form_build_id (String, 37 characters ) form-558943ef2d177d8eaad7beffcdb8fd8b
-    *
-      form_token (String, 32 characters ) 75fd1e0d33b939d51096f2fb342ba5b4
-    *
-      form_id (String, 20 characters ) personell_check_form | (Callback) personell_check_form();
+}
 
-
-*/
-
+function checked_validation($checked) {
+//  TODO: what to do if 0? all are different?
+  if (count($checked) != 2) {
+    drupal_set_message('Please select two values.');
+// TODO:   goes to csv2drupal!!!, should to 'personell_check'
+    return 0;
+//    drupal_goto('personell_check', $current_destination);
+  } else {
+//    drupal_goto('two_person_compare', $current_destination);
+    return 1;
+  }
 }
 
 function personell_check_theme($existing, $type, $theme, $path) {

@@ -3,6 +3,7 @@
   function personell_check_uninstall() {
     variable_del('new_person_nid');
     variable_del('old_person_nids');
+    variable_del('person_checked');
   }
 
 ?>
