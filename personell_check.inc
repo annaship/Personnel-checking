@@ -21,7 +21,7 @@ function personell_check_form($form_state) {
   $nodes = array_merge($new_a, $old_a);
 
 //  $nodes = _personell_check_items($old_person_nids);
-  $form['#redirect'] = 'two_person';
+//  $form['#redirect'] = 'two_person';
   
   $form['container'] = array(
     '#type' => 'markup',

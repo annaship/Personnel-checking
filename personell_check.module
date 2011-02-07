@@ -18,15 +18,15 @@ function personell_check_menu() {
     'file' => 'personell_check.inc',
     );
 
-    $items['two_person'] = array (
-    'title' => t('Compare two person nodes'),
-//    'page callback' => 'two_person_page',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('two_person_form'),
-    'access arguments' => array('administer nodes'),
-    'type' => MENU_CALLBACK,
-    'file' => 'two_person.inc',
-    );
+//    $items['two_person'] = array (
+//    'title' => t('Compare two person nodes'),
+////    'page callback' => 'two_person_page',
+//    'page callback' => 'drupal_get_form',
+//    'page arguments' => array('two_person_form'),
+//    'access arguments' => array('administer nodes'),
+//    'type' => MENU_CALLBACK,
+//    'file' => 'two_person.inc',
+//    );
 
 
 
