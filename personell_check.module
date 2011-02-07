@@ -32,14 +32,17 @@ function two_person_page() {
     foreach ($checked_nids as $checked_nid) {
       $header       = array('Title', 'Nid');
       $rows['data'] = array();
-        dpr($checked_nid);
+//        dpr($checked_nid);
         $node       = node_load($checked_nid);
         $node_nid   = $node->nid;
         $node_title = $node->title;
         $node_type  = $node->type;
-        $node_link  = l($nid, 'node/'.$nid);
+        $node_link  = l($checked_nid, 'node/'.$checked_nid);
+        $rows[] = array('Title = ' . $node_title, $node_link);
     }
   }
+//  dpr($rows);
+  return theme_table($header, $rows);
 }
 
 
