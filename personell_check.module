@@ -18,68 +18,73 @@ function personell_check_menu() {
     'file' => 'personell_check.inc',
     );
 
-  $items['two_person'] = array(
+    $items['two_person'] = array (
+    'title' => t('Compare two person nodes'),
+//    'page callback' => 'two_person_page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('two_person_form'),
+    'access arguments' => array('administer nodes'),
     'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
-    'page callback' => 'two_person_page');
+    'file' => 'two_person.inc',
+    );
+
+
+
+//  $items['two_person'] = array(
+//    'type' => MENU_CALLBACK,
+//    'access arguments' => array('access content'),
+//    'page callback' => 'two_person_page');
 
   return $items;
 }
 
-function two_person_page() {
-  $checked_nids  = variable_get('person_checked', '');
-  $transformed_container = _regroup_two_person_data($checked_nids);
-//  dpm($transformed_container);
-  /*
-   * last_name (Array, 2 elements)
-0 (String, 6 characters ) Shaver
-1 (String, 6 characters ) Shaver
-   */
-
-  if(!empty($transformed_container)) {
-    $header = array(
-      t(''),
-      t('First Person'),
-      t('Second Person'),
-    );
-    $rows['data'] = array();
-
-    foreach ($transformed_container as $field_name => $checked_node) {
-//      dpm($field_name);
-//      dpm($checked_node);
-//      $node_link  = l($checked_nid, 'node/'.$checked_nid);
-//      $rows[] = array('Title = ' . $node_title, $node_link);
-      $rows[] = array($field_name, $checked_node[0], $checked_node[1]);
-    }
-  }
-//  variable_del(person_checked);
-  return theme_table($header, $rows);
-}
-
-function _regroup_two_person_data($checked_nids) {
-  $comparison = array();
-  if(!empty($checked_nids)) {
-    foreach ($checked_nids as $checked_nid) {
-      $node                         = node_load($checked_nid);
-      $comparison['first_name'][]  	= $node->field_person_first_name[0]['value'];
-      $comparison['last_name'][]  	= $node->field_person_last_name[0]['value'];
-      $comparison['organization'][] = $node->field_person_organization[0]['value'];
-      $comparison['title'][]  			= $node->field_person_title[0]['value'];
-      $comparison['address'][]  		= $node->field_person_address[0]['value'];
-      $comparison['city'][]         = $node->field_person_city[0]['value'];
-      $comparison['state'][]  			= $node->field_person_state[0]['value'];
-      $comparison['zipcode'][]  		= $node->field_person_zipcode[0]['value'];
-      $comparison['country'][]  		= $node->field_person_country[0]['value'];
-      $comparison['phone'][]  			= $node->field_person_phone[0]['value'];
-      $comparison['fax'][]          = $node->field_person_fax[0]['value'];
-      $comparison['email'][]  			= $node->field_person_email[0]['email'];
-      $comparison['personid'][]  		= $node->field_person_personid[0]['value'];
-      $comparison['role'][]         = $node->field_person_role[0]['value'];
-      $comparison['uid'][]          = $node->field_person_uid[0]['uid'];
-    }
-  }
-  return($comparison);
-}
+//function two_person_page() {
+//  $checked_nids  = variable_get('person_checked', '');
+//  $transformed_container = _regroup_two_person_data($checked_nids);
+//  if(!empty($transformed_container)) {
+//    $header = array(
+//      t(''),
+//      t('First Person'),
+//      t('Second Person'),
+//    );
+//    $rows['data'] = array();
+//
+//    foreach ($transformed_container as $field_name => $checked_node) {
+////      dpm($field_name);
+////      dpm($checked_node);
+////      $node_link  = l($checked_nid, 'node/'.$checked_nid);
+////      $rows[] = array('Title = ' . $node_title, $node_link);
+//      $rows[] = array($field_name, $checked_node[0], $checked_node[1]);
+//    }
+//  }
+////  variable_del(person_checked);
+//  return theme_table($header, $rows);
+//}
+//
+//function _regroup_two_person_data($checked_nids) {
+//  $comparison = array();
+//  if(!empty($checked_nids)) {
+//    foreach ($checked_nids as $checked_nid) {
+//      $node                         = node_load($checked_nid);
+//      $comparison['first_name'][]  	= $node->field_person_first_name[0]['value'];
+//      $comparison['last_name'][]  	= $node->field_person_last_name[0]['value'];
+//      $comparison['organization'][] = $node->field_person_organization[0]['value'];
+//      $comparison['title'][]  			= $node->field_person_title[0]['value'];
+//      $comparison['address'][]  		= $node->field_person_address[0]['value'];
+//      $comparison['city'][]         = $node->field_person_city[0]['value'];
+//      $comparison['state'][]  			= $node->field_person_state[0]['value'];
+//      $comparison['zipcode'][]  		= $node->field_person_zipcode[0]['value'];
+//      $comparison['country'][]  		= $node->field_person_country[0]['value'];
+//      $comparison['phone'][]  			= $node->field_person_phone[0]['value'];
+//      $comparison['fax'][]          = $node->field_person_fax[0]['value'];
+//      $comparison['email'][]  			= $node->field_person_email[0]['email'];
+//      $comparison['personid'][]  		= $node->field_person_personid[0]['value'];
+//      $comparison['role'][]         = $node->field_person_role[0]['value'];
+//      $comparison['uid'][]          = $node->field_person_uid[0]['uid'];
+//    }
+//  }
+//  return($comparison);
+//}
 
 /*
  function two_person_page() {

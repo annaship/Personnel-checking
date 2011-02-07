@@ -217,6 +217,16 @@ function theme_personell_check_form_table($container) {
 //  print('Blah2!');
 //}
 
+
+//function my_module_theme() {
+//    return array(
+//      'my_theme_function' => array(
+//      'arguments' => array(),
+//    ));
+//}
+
+
+
 function _get_new_person_node($new_person_nid) {
   $new_person = array();
   $node       = node_load($new_person_nid);
@@ -242,35 +252,3 @@ function _personell_check_items($old_person_nids) {
   return $res;
 }
 
-/*
- function display_report_page()
-{
-  $csv2drupal_submit_time = variable_get(csv2drupal_submit_time, time());
-  $sql = "SELECT nid FROM {node} WHERE created >= %d ORDER BY nid DESC";
-  $db_result = db_query($sql, $csv2drupal_submit_time);
-
-  $header       = array('Title', 'Nid');
-  $rows['data'] = array();
-  while ($res   = db_fetch_object($db_result)) {
-    $nid        = $res->nid;
-    $node       = node_load($nid);
-    $node_nid   = $node->nid;
-    $node_title = $node->title;
-    $node_type  = $node->type;
-    $node_link  = l($nid, 'node/'.$nid);
-    if ($node_type != $old_node_type) {
-      $rows[] = array(array('data' => 'Type = ' . $node_type, 'colspan' => 2, 'font size' => 4, 'align' => 'center'));
-      $old_node_type = $node_type;
-    }
-    $rows[] = array('Title = ' . $node_title, $node_link);
-  }
-  if (count($rows) == 1)
-      $rows[] = array("No nodes was saved");
-
-  variable_del(csv2drupal_submit_time);
-  return theme_table($header, $rows);
-}
-
- */
-
-//
