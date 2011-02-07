@@ -28,6 +28,67 @@ function personell_check_menu() {
 
 function two_person_page() {
   $checked_nids  = variable_get('person_checked', '');
+  $transformed_container = _regroup_two_person_data($checked_nids);
+  dpm($transformed_container);
+  /*
+   * last_name (Array, 2 elements)
+0 (String, 6 characters ) Shaver
+1 (String, 6 characters ) Shaver
+   */
+
+//  if(!empty($checked_nids)) {
+//    foreach ($checked_nids as $checked_nid) {
+//      $header = array(
+//        t(''),
+//        t('First Person'),
+//        t('Second Person'),
+//      );
+//
+//
+////$header       = array('Title', 'Nid');
+//      $rows['data'] = array();
+////        dpr($checked_nid);
+//      $node       = node_load($checked_nid);
+//      $node_nid   = $node->nid;
+//      $node_title = $node->title;
+//      $node_type  = $node->type;
+//      $node_link  = l($checked_nid, 'node/'.$checked_nid);
+//      $rows[] = array('Title = ' . $node_title, $node_link);
+//    }
+//  }
+//  variable_del(person_checked);
+  return theme_table($header, $rows);
+}
+
+function _regroup_two_person_data($checked_nids) {
+  $comparison = array();
+  if(!empty($checked_nids)) {
+    foreach ($checked_nids as $checked_nid) {
+      $node                         = node_load($checked_nid);
+//      dpm($node);
+      $comparison['first_name'][]  	= $node->field_person_first_name[0]['value'];
+      $comparison['last_name'][]  	= $node->field_person_last_name[0]['value'];
+      $comparison['organization'][] = $node->field_person_organization[0]['value'];
+      $comparison['title'][]  			= $node->field_person_title[0]['value'];
+      $comparison['address'][]  		= $node->field_person_address[0]['value'];
+      $comparison['city'][]         = $node->field_person_city[0]['value'];
+      $comparison['state'][]  			= $node->field_person_state[0]['value'];
+      $comparison['zipcode'][]  		= $node->field_person_zipcode[0]['value'];
+      $comparison['country'][]  		= $node->field_person_country[0]['value'];
+      $comparison['phone'][]  			= $node->field_person_phone[0]['value'];
+      $comparison['fax'][]          = $node->field_person_fax[0]['value'];
+      $comparison['email'][]  			= $node->field_person_email[0]['email'];
+      $comparison['personid'][]  		= $node->field_person_personid[0]['value'];
+      $comparison['role'][]         = $node->field_person_role[0]['value'];
+      $comparison['uid'][]          = $node->field_person_uid[0]['uid'];
+    }
+  }
+  return($comparison);
+}
+
+/*
+ function two_person_page() {
+  $checked_nids  = variable_get('person_checked', '');
   if(!empty($checked_nids)) {
     foreach ($checked_nids as $checked_nid) {
       $header       = array('Title', 'Nid');
@@ -41,43 +102,7 @@ function two_person_page() {
         $rows[] = array('Title = ' . $node_title, $node_link);
     }
   }
-//  dpr($rows);
+//  variable_del(person_checked);
   return theme_table($header, $rows);
 }
-
-
-/*
- function display_report_page()
-{
-  $csv2drupal_submit_time = variable_get(csv2drupal_submit_time, time());
-  $sql = "SELECT nid FROM {node} WHERE created >= %d ORDER BY nid DESC";
-  $db_result = db_query($sql, $csv2drupal_submit_time);
-
-  $header       = array('Title', 'Nid');
-  $rows['data'] = array();
-  while ($res   = db_fetch_object($db_result)) {
-    $nid        = $res->nid;
-    $node       = node_load($nid);
-    $node_nid   = $node->nid;
-    $node_title = $node->title;
-    $node_type  = $node->type;
-    $node_link  = l($nid, 'node/'.$nid);
-    if ($node_type != $old_node_type) {
-      $rows[] = array(array('data' => 'Type = ' . $node_type, 'colspan' => 2, 'font size' => 4, 'align' => 'center'));
-      $old_node_type = $node_type;
-    }
-    $rows[] = array('Title = ' . $node_title, $node_link);
-  }
-  if (count($rows) == 1)
-      $rows[] = array("No nodes was saved");
-
-  variable_del(csv2drupal_submit_time);
-  return theme_table($header, $rows);
-}
-
  */
-
-//function personell_check_page() {
-//  return drupal_get_form('personell_check_form');
-//}
-
