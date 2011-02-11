@@ -1,6 +1,0 @@
-; $Id: personell_check.info,v 1.1 2011/02/01 20:27:16 ashipunova Exp ashipunova $
-name = Personell Checking
-description = "Check new person data against old ones"
-core = 6.x  
-package = Metadata upload
-
