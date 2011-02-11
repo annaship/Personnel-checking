@@ -1,0 +1,6 @@
+; $Id: duplicates_check.info,v 1.1 2011/02/01 20:27:16 ashipunova Exp ashipunova $
+name = Duplicates Checking
+description = "Show duplicates"
+core = 6.x  
+package = Duplicates
+

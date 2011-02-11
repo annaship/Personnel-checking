@@ -1,0 +1,30 @@
+<?php
+// $Id: duplicates_check.module,v 1.1 2011/02/01 20:27:20 ashipunova Exp ashipunova $
+/*
+ * Show duplicates
+ * ?q=duplicates_check
+*/
+
+
+function duplicates_check_menu() {
+
+  $items = array();
+  $items['duplicates_check'] = array (
+    'title' => t('Check new person data against old ones'),
+//    'page callback' => 'duplicates_check_page',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('duplicates_check_form'),
+    'access arguments' => array('administer nodes'),
+    'type' => MENU_CALLBACK,
+    'file' => 'duplicates_check.inc',
+    );
+
+  $items['duplicates_edit'] = array(
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+    'page callback' => 'duplicates_edit_page',
+    'file' => 'duplicates_edit.inc',
+      );
+  
+  return $items;
+}
