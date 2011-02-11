@@ -29,7 +29,7 @@ function duplicates_check_form($form_state) {
     );
   }
 
-  $form['#redirect'] = 'duplicates_edit';
+//  $form['#redirect'] = 'duplicates_edit';
 
   $form['submit'] = array (
     '#type' => 'submit',
@@ -51,8 +51,15 @@ function duplicates_check_form_submit($form, &$form_state) {
 }
   dpm($checked);
   variable_set('checked_nides', $checked);
+  $current_destination = drupal_get_destination();
+  dpm('$checked.size = ' . count($checked));
+  if (count($checked) != 2) {
+    drupal_set_message('Please check two nodes');
+  }
+  else {
+    drupal_goto('duplicates_edit', $current_destination);
+  }
 }
-
 
 function duplicates_check_theme($existing, $type, $theme, $path) {
   return array(

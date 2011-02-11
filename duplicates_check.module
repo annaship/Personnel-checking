@@ -18,13 +18,13 @@ function duplicates_check_menu() {
     'type' => MENU_CALLBACK,
     'file' => 'duplicates_check.inc',
     );
-
-  $items['duplicates_edit'] = array(
-    'type' => MENU_CALLBACK,
-    'access arguments' => array('access content'),
-    'page callback' => 'duplicates_edit_page',
-    'file' => 'duplicates_edit.inc',
-      );
+//
+//  $items['duplicates_edit'] = array(
+//    'type' => MENU_CALLBACK,
+//    'access arguments' => array('access content'),
+//    'page callback' => 'duplicates_edit_page',
+//    'file' => 'duplicates_edit.inc',
+//      );
   
   return $items;
 }
