@@ -1,7 +1,6 @@
 <?php
 
-//require_once('duplicates_check_form_submit.inc');
-
+//TODO: change references in all CCT
 
 function duplicates_check_form($form_state) {
   $form = array();
@@ -50,7 +49,8 @@ function duplicates_check_form_submit($form, &$form_state) {
     $checked[] = $nid;
   }
 }
-    dpm($checked);
+  dpm($checked);
+  variable_set('checked_nides', $checked);
 }
 
 

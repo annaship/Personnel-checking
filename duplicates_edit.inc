@@ -2,6 +2,8 @@
 
 function duplicates_edit_page()
 {
-  dpr('duplicates_edit_page');
-  dpm('duplicates_edit_page');
+  $checked_nides = variable_get('checked_nides', '');
+
+  dpr($checked_nides);
+  dpm($checked_nides);
 }

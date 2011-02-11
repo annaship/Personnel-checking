@@ -1,7 +1,7 @@
 <?php
 
   function duplicates_check_uninstall() {
-    variable_del('person_checked');
+    variable_del('checked_nides');
   }
 
 ?>
