@@ -6,10 +6,15 @@ function duplicates_check_form($form_state) {
   $form = array();
   unset($last_settings);
 
-  $nids = array(47,
-            48,
-            37806,
-            37883);
+  $nids = _get_nids();
+  dpm('$nids = ');
+  dpm($nids);
+
+//nids
+//  $nids = array(47,
+//            48,
+//            37806,
+//            37883);
 
 //  $nodes = _duplicates_check_items($old_person_nids);
 //  $form['#redirect'] = 'two_person';
@@ -52,7 +57,7 @@ function duplicates_check_form_submit($form, &$form_state) {
   dpm($checked);
   variable_set('checked_nides', $checked);
   $current_destination = drupal_get_destination();
-  dpm('$checked.size = ' . count($checked));
+//  dpm('$checked.size = ' . count($checked));
   if (count($checked) != 2) {
     drupal_set_message('Please check two nodes');
   }
@@ -99,3 +104,20 @@ function theme_duplicates_check_form_table($container) {
   return theme_table($header, $rows);
 }
 
+function _get_nids() {
+  $nids = array();
+  $sql = "SELECT nid from {content_type_person} WHERE field_person_last_name_value in (
+              SELECT field_person_last_name_value
+              FROM {content_type_person}
+              GROUP BY field_person_last_name_value
+              HAVING (COUNT(field_person_last_name_value) > 1)
+            ORDER BY field_person_last_name_value
+          );";
+
+  $db_result = db_query($sql);
+  while ($nid = db_result($db_result)) {
+    $nids[] = $nid;
+  }
+  dpm($nids);
+  return $nids;
+}
