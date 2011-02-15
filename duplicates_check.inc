@@ -4,20 +4,7 @@
 
 function duplicates_check_form($form_state) {
   $form = array();
-  unset($last_settings);
-
   $nids = _get_nids();
-  dpm('$nids = ');
-  dpm($nids);
-
-//nids
-//  $nids = array(47,
-//            48,
-//            37806,
-//            37883);
-
-//  $nodes = _duplicates_check_items($old_person_nids);
-//  $form['#redirect'] = 'two_person';
 
   $form['container'] = array(
     '#type' => 'markup',
@@ -44,20 +31,16 @@ function duplicates_check_form($form_state) {
   return $form;
 }
 
-//TODO: only 2 boxes should be checked!
 function duplicates_check_form_submit($form, &$form_state) {
-//  dpm('Submit!!!');
   foreach ($form_state['values'] as $key => $value) {
-  $e = preg_match("/node_(\d+)/", $key, $matches);
-  $nid = $matches[1];
-  if (preg_match("/node/", $key) AND $value == 1) {
-    $checked[] = $nid;
+    $e = preg_match("/node_(\d+)/", $key, $matches);
+    $nid = $matches[1];
+    if (preg_match("/node/", $key) AND $value == 1) {
+      $checked[] = $nid;
+    }
   }
-}
-  dpm($checked);
   variable_set('checked_nides', $checked);
   $current_destination = drupal_get_destination();
-//  dpm('$checked.size = ' . count($checked));
   if (count($checked) != 2) {
     drupal_set_message('Please check two nodes');
   }
@@ -118,6 +101,5 @@ function _get_nids() {
   while ($nid = db_result($db_result)) {
     $nids[] = $nid;
   }
-  dpm($nids);
   return $nids;
 }
