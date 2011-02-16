@@ -3,6 +3,14 @@
 //TODO: sort by last name
 //TODO: clear theme cashe
 
+
+function duplicates_check_page()
+{
+  drupal_rebuild_theme_registry();
+  return drupal_get_form('duplicates_check_form');
+}
+
+
 function duplicates_check_form($form_state) {
   $form = array();
   $nids = _get_nids();

@@ -11,8 +11,8 @@ function duplicates_check_menu() {
   $items = array();
   $items['duplicates_check'] = array (
     'title' => t('Check new person data against old ones'),
-//    'page callback' => 'duplicates_check_page',
-    'page callback' => 'drupal_get_form',
+    'page callback' => 'duplicates_check_page',
+//    'page callback' => 'drupal_get_form',
     'page arguments' => array('duplicates_check_form'),
     'access arguments' => array('administer nodes'),
     'type' => MENU_CALLBACK,
