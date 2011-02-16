@@ -1,6 +1,7 @@
 <?php
 
-//TODO: change references in all CCT
+//TODO: sort by last name
+//TODO: clear theme cashe
 
 function duplicates_check_form($form_state) {
   $form = array();
@@ -60,7 +61,6 @@ function duplicates_check_theme($existing, $type, $theme, $path) {
 
 function theme_duplicates_check_form_table($container) {
 
-  // Define header row for the table
   $header = array(t('Nid'), t('First Name'), t('Last Name'), t('Email'), t('Compare'));
 
   $rows = array();
