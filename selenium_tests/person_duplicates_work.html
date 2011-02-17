@@ -126,10 +126,10 @@
 	<td></td>
 </tr>                       
 <tr>
-	<td>storeTable</td>   
-	<td>//form[@id='node-admin-content']/div/table[2].3.1</td>
+	<td>storeText</td>
+	<td>//form[@id='node-admin-content']/div/table[2]/tbody/tr/td[2]/a</td>
 	<td>first_dataset</td>
-</tr>
+</tr>  
 <tr>
 	<td>clickAndWait</td>
 	<td>link=${first_dataset}</td>
@@ -197,16 +197,47 @@
 	<td>verifyTextPresent</td>
 	<td>Test_good</td>
 	<td></td>
-</tr>
+</tr>                                           
+<!-- <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[2]/td[2]</td> -->
+<!-- div[contains(@class, "foo")]
+	xpath=//input[@name='name2' and @value='yes']        
+	item[id/@isInStock='true']/category/text()
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[contains(@class, "even")]</td>      
+	textContent
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td/text()</td>                
+	childNodes[1].childNodes                         
+	textContent='Test_good'                        
+	<td>//td[contains(text(), "Test_good")]</td>
+/html/body/div[2]/div/div[3]/div/div/div/div[3]/form/div/table[2]/tbody/tr[2]/td[2]  
+/html/body/div[2]/div/div[3]/div/div/div/div[3]/form/div/table[2]/tbody/tr[2]/td[5] -->
+<!-- <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), "Test_good")]</td>
 <tr>
-	<td>click</td>                      
-	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[4]/td[5]/div/input</td>
+  <td>verifyElementPresent</td>                                        
+  <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), "Test_good")]/..</td>
+  <td></td>
+</tr>             -->
+<!-- <tr>
+  <td>verifyElementPresent</td>
+  <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_good')]/../td[5]/div/input</td>
+  <td></td>
+</tr> -->
+  
+<!-- <tr>
+  <td>storeTable</td>
+  <td>//form[@id='duplicates-check-form']/div/table[2].2.1</td>
+  <td>tabl</td>
+</tr> -->
+
+<!-- <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[4]/td[5]/div/input</td> -->
+<tr>
+	<td>click</td>               
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_good')]/../td[5]/div/input</td>
 	<td></td>
 </tr>
 <tr>
-	<td>storeText</td>
-	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[4]/td[1]</td>
-	<td>test_good</td>
+  <td>storeText</td>
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_good')]/../td[1]</td>
+  <td>test_good</td>
 </tr>
 <tr>
 	<td>verifyTextPresent</td>
@@ -215,12 +246,12 @@
 </tr>
 <tr>                            
 	<td>click</td>
-	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[5]/td[5]/div/input</td>
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_bad')]/../td[5]/div/input</td>
 	<td></td>
 </tr>
 <tr>
 	<td>storeText</td>
-	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr[5]/td[1]</td>
+	<td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_bad')]/../td[1]</td>
 	<td>test_bad</td>
 </tr>
 <tr>
@@ -228,12 +259,34 @@
 	<td>edit-submit</td>
 	<td></td>
 </tr>
-<!-- run edit -->
+<!-- run edit -->     
+<!--                       
+xpath=//input[@name='name2' and @value='yes']        
+
+//*[@value='Test_bad']
 <tr>
 	<td>verifyText</td>
 	<td>edit-2-first-name</td>
 	<td></td>
-</tr>
+</tr>             
+assignId | //table//td[.='case_1']/.. | myRow
+assertText | id=myRow | Some text
+assertText | id=myRow | Some other text
+generate-id(.)
+generate-id(/root/parent/child)
+ -->
+ <!-- <tr>
+  <td>storeText</td>
+  <td>//form[@id='duplicates-check-form']/div/table[2]/tbody/tr/td[contains(text(), 'Test_bad')]</td>
+  <td>test1</td>
+ </tr> -->
+
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//*[@value='Test_bad']</td>
+	<td></td>
+</tr>              
+
 <tr>
 	<td>select</td>
 	<td>edit-1-state</td>
@@ -253,7 +306,12 @@
   <td>verifyTextPresent</td>
   <td>Person Test bad Name has been deleted.</td>
   <td></td>
-</tr>
+</tr>                                   
+<tr>
+  <td>verifyTextPresent</td>
+  <td>There are no duplicates</td>
+  <td></td>
+</tr>                                   
 <tr>
 	<td>verifyTextNotPresent</td>
 	<td>Test_bad</td>
@@ -330,58 +388,37 @@
 	<td>Alabama</td>
 	<td></td>
 </tr>
-<!-- clean old test data -->
-<!-- <tr>
-  <td>open</td>
-  <td>/drupal6-local/?q=devel/php</td>
-  <td></td>
-</tr>
+<!-- clean a dataset -->      
 <tr>
-  <td>type</td>
-  <td>edit-code</td>
-  <td>$q = db_query("SELECT * FROM node WHERE title like 'Test %Name';");<br />while ($nid = db_result($q)) {<br />&nbsp;&nbsp;node_delete($nid);<br />}</td>
-</tr>
-<tr>
-  <td>clickAndWait</td>
-  <td>edit-op</td>
-  <td></td>
-</tr> -->
-<!-- remove empty link -->
-<!-- <tr>
   <td>clickAndWait</td>
   <td>link=Content</td>
   <td></td>
 </tr>
 <tr>
-  <td>clickAndWait</td>
-  <td>link=${first_dataset}</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>link=${first_dataset}</td>
+	<td></td>
 </tr>
 <tr>
-  <td>clickAndWait</td>
-  <td>link=Edit</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>link=Edit</td>
+	<td></td>
 </tr>
 <tr>
-  <td>waitForElementPresent</td>
-  <td>edit-field-dataset-fieldcrew-ref-0-nid-nid</td>
-  <td></td>
+	<td>type</td>
+	<td>edit-field-dataset-fieldcrew-ref-0-nid-nid</td>
+	<td></td>
 </tr>
 <tr>
-  <td>type</td>
-  <td>edit-field-dataset-fieldcrew-ref-0-nid-nid</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>edit-field-dataset-datafile-ref-field-dataset-datafile-ref-add-more</td>
+	<td></td>
 </tr>
 <tr>
-  <td>type</td>
-  <td>edit-field-dataset-fieldcrew-ref-1-nid-nid</td>
-  <td></td>
+	<td>clickAndWait</td>
+	<td>edit-submit</td>
+	<td></td>
 </tr>
-<tr>
-  <td>clickAndWait</td>
-  <td>edit-submit</td>
-  <td></td>
-</tr> -->
 </tbody></table>
 </body>
 </html>

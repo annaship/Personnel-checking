@@ -68,31 +68,42 @@ function duplicates_check_theme($existing, $type, $theme, $path) {
 
 
 function theme_duplicates_check_form_table($container) {
-  if (empty($container[value])) {
+//  dpm($container);
+//  if (empty($container['value'])) {
+//    drupal_set_message("There are no duplicates");
+//  }
+//  else {
+  $nids = array();
+  foreach($container as $field_name => $field) {
+    // All the fields were named 'node_' . $node->nid
+    if (strpos($field_name, 'node_') === 0) {
+
+      $nid = substr($field_name, 5);
+      $nids[] = array($nid => $field);
+    }
+  }
+
+  if (empty($nids)) {
     drupal_set_message("There are no duplicates");
   }
-  else {
+  elseif (!empty($nids)) {
     $header = array(t('Nid'), t('First Name'), t('Last Name'), t('Email'), t('Compare'));
     $rows = array();
 
-    foreach($container as $field_name => $field) {
-      // All the fields were named 'node_' . $node->nid
-      if (strpos($field_name, 'node_') === 0) {
+    foreach ($nids as $value) {
+      foreach($value as $nid => $field) {
+        // All the fields were named 'node_' . $node->nid
+          $node = node_load($nid);
 
-        $nid = substr($field_name, 5);
-        $node = node_load($nid);
-
-        $rows[] = array(
-          $node->nid,
-          check_plain($node->field_person_first_name[0]['value']),
-          check_plain($node->field_person_last_name[0]['value']),
-          check_plain($node->field_person_email[0]['email']),
-          drupal_render($field),
-        );
-
+          $rows[] = array(
+            $node->nid,
+            check_plain($node->field_person_first_name[0]['value']),
+            check_plain($node->field_person_last_name[0]['value']),
+            check_plain($node->field_person_email[0]['email']),
+            drupal_render($field),
+          );
       }
     }
-
     return theme_table($header, $rows);
   }
 }
